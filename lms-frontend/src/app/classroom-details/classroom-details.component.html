@@ -1,0 +1,138 @@
+<div class="container">
+    <h2>Create Assignment</h2>
+    <form (ngSubmit)="createAssignment()">
+      <!-- Manual Classroom ID input -->
+      <div class="form-group">
+        <label for="classroomId">Classroom ID</label>
+        <input 
+          type="text" 
+          id="classroomId" 
+          class="form-control" 
+          [(ngModel)]="classroomId" 
+          name="classroomId" 
+          required
+          placeholder="Enter Classroom ID" />
+      </div>
+  
+      <!-- Assignment Title -->
+      <div class="form-group">
+        <label for="title">Assignment Title</label>
+        <input 
+          type="text" 
+          id="title" 
+          class="form-control" 
+          [(ngModel)]="newAssignment.title" 
+          name="title" 
+          required 
+          placeholder="Enter title for the assignment" />
+      </div>
+  
+      <!-- Assignment Description -->
+      <div class="form-group">
+        <label for="description">Assignment Description</label>
+        <textarea 
+          id="description" 
+          class="form-control" 
+          [(ngModel)]="newAssignment.description" 
+          name="description" 
+          required 
+          placeholder="Enter the description for the assignment"></textarea>
+      </div>
+  
+      <!-- Due Date -->
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input 
+          type="date" 
+          id="dueDate" 
+          class="form-control" 
+          [(ngModel)]="newAssignment.dueDate" 
+          name="dueDate" 
+          required />
+      </div>
+  
+      <button type="submit" class="btn">Create Assignment</button>
+    </form>
+  </div>
+  
+  <style>
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #f4f7fc;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 600;
+    }
+  
+    form {
+      display: grid;
+      gap: 20px;
+    }
+  
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+  
+    input[type="text"],
+    input[type="date"],
+    textarea {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      transition: all 0.3s ease;
+    }
+  
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+  
+    textarea {
+      resize: vertical;
+      height: 120px;
+    }
+  
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+  
+    button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+  
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+  

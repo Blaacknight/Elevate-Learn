@@ -1,0 +1,64 @@
+<div class="live-coding-page">
+  <!-- Instructions Panel -->
+  <div class="instructions-panel">
+    <h2>How to Use</h2>
+    <ul>
+      <li>Select your preferred language from the dropdown.</li>
+      <li>Type or paste your code in the code editor.</li>
+      <li>Provide custom input if your code requires it.</li>
+      <li>Click <strong>Run Code</strong> to execute and view the output.</li>
+    </ul>
+
+    <h3>Troubleshooting Tips</h3>
+    <ul>
+      <li>Ensure your code is syntactically correct.</li>
+      <li>Double-check if you've selected the correct language.</li>
+      <li>Wait a few seconds for the output — processing takes time.</li>
+      <li>Click <strong>Refresh</strong> if execution fails or stalls.</li>
+    </ul>
+  </div>
+
+  <!-- Live Coding Terminal -->
+  <div class="live-coding">
+    <!-- Go Back and Refresh Buttons -->
+    <div class="action-buttons">
+      <button class="go-back" (click)="goBack()">Go Back</button>
+      <button class="refresh" (click)="refresh()">Refresh</button>
+    </div>
+
+    <h2>Live Coding Terminal</h2>
+
+    <label for="language-select">Choose Language:</label>
+    <select id="language-select" [(ngModel)]="languageId">
+      <option value="50">C</option>
+      <option value="54">C++</option>
+      <option value="62">Java</option>
+      <option value="71">Python (3)</option>
+      <option value="63">JavaScript (Node.js)</option>
+      <option value="78">Kotlin</option>
+      <option value="74">TypeScript</option>
+      <option value="70">Python 2</option>
+      <option value="72">Ruby</option>
+      <option value="79">Rust</option>
+      <option value="80">Scala</option>
+      <option value="83">Swift</option>
+      <option value="81">Perl</option>
+      <option value="68">PHP</option>
+      <option value="84">VB.NET</option>
+      <option value="86">F#</option>
+      <option value="51">Pascal</option>
+      <option value="85">Objective-C</option>
+    </select>
+
+    <label for="code-area">Code:</label>
+    <textarea id="code-area" [(ngModel)]="code" rows="10" cols="80" placeholder="Write your code here"></textarea>
+
+    <label for="input-area">Input:</label>
+    <textarea id="input-area" [(ngModel)]="input" rows="4" cols="80" placeholder="Input (if needed)"></textarea>
+
+    <button class="run-code" (click)="runCode()">Run Code</button>
+
+    <h3>Output:</h3>
+    <pre>{{ loading ? 'Running...' : output }}</pre>
+  </div>
+</div>

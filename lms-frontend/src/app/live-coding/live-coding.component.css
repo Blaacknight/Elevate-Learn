@@ -1,0 +1,182 @@
+/* Page layout: Two-column responsive grid */
+.live-coding-page {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  padding: 40px;
+  background-color: #1e1e1e;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Left Panel: Instructions */
+.instructions-panel {
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.instructions-panel h2,
+.instructions-panel h3 {
+  color: #333;
+  border-bottom: 2px solid #f5a623;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.instructions-panel ul {
+  list-style: disc;
+  padding-left: 20px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+/* Right Panel: Live Coding Section */
+.live-coding {
+  max-width: 100%;
+  padding: 20px;
+  background-color: #2d2d2d;
+  color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Headings */
+.live-coding h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #f5a623;
+}
+
+.live-coding h3 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: #f5a623;
+}
+
+/* Labels */
+.live-coding label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+  color: #f5f5f5;
+}
+
+/* Dropdown */
+.live-coding select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 20px;
+  background-color: #444;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.live-coding select:focus {
+  border-color: #f5a623;
+  outline: none;
+}
+
+/* Textareas */
+.live-coding textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 20px;
+  resize: vertical;
+  min-height: 100px;
+  transition: all 0.3s ease;
+}
+
+.live-coding textarea:focus {
+  border-color: #f5a623;
+  outline: none;
+}
+
+/* Buttons */
+.live-coding button.run-code {
+  width: 100%;
+  padding: 15px;
+  background-color: #f5a623;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.live-coding button.run-code:hover {
+  background-color: #f58e1f;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.action-buttons button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button.go-back {
+  background-color: #4caf50;
+}
+
+button.go-back:hover {
+  background-color: #45a049;
+}
+
+button.refresh {
+  background-color: #f44336;
+}
+
+button.refresh:hover {
+  background-color: #e53935;
+}
+
+/* Output */
+.live-coding pre {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  min-height: 100px;
+  color: #f5f5f5;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .live-coding-page {
+    grid-template-columns: 1fr;
+  }
+
+  .instructions-panel {
+    margin-bottom: 30px;
+  }
+}

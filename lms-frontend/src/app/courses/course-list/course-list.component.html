@@ -1,0 +1,54 @@
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-100">
+  <h1 class="text-4xl font-bold mb-10 text-gray-800 border-b border-gray-200 pb-6 flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838l-2.328.996.002 1.069c0 .527-.422.957-.95.957a.96.96 0 01-.107-.01l-1.81-.174a1 1 0 00-.707.283.997.997 0 00-.293.707v.112l4.145 1.776a1 1 0 00.788 0l7-3a1 1 0 000-1.841l-7-3zM5.31 17.337a1 1 0 00.6-.2l4.145-3.447a1 1 0 00.4-.8v-4.321a1 1 0 00-.4-.8L5.91 4.323a1 1 0 00-1.2 0L.565 7.77a1 1 0 00-.4.8v4.32a1 1 0 00.4.8l4.146 3.447a1 1 0 00.6.2z" />
+    </svg>
+    All Published Courses
+  </h1>
+  
+  <div *ngIf="loading" class="flex justify-center items-center py-24">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+    <span class="ml-3 text-lg text-gray-600 font-medium">Loading courses...</span>
+  </div>
+  
+  <div *ngIf="!loading && courses.length === 0" class="flex flex-col items-center justify-center py-24">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <div class="text-xl text-gray-500 font-medium">No courses found.</div>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div *ngFor="let course of courses" class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+      <div class="relative">
+        <img [src]="'http://localhost:5000' + course.thumbnail" alt="Course image" class="h-52 w-full object-cover">
+        <div class="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+          {{ course.category }}
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-3 line-clamp-2 h-16">{{ course.title }}</h2>
+        
+        <div class="flex items-center mb-6">
+          <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-800 font-bold">
+            {{ course.tutor.name.charAt(0) }}
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-gray-500">Instructor</p>
+            <p class="font-medium text-gray-800">{{ course.tutor.name }}</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+          <a [routerLink]="['/courses', course._id]" class="group inline-flex items-center bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-all duration-300 font-medium text-sm">
+            View Details
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

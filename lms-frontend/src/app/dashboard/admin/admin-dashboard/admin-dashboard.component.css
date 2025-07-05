@@ -1,0 +1,76 @@
+.admin-dashboard {
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #f8fafc, #e0f2fe);
+    min-height: 100vh;
+    color: #1f2937; /* Gray-800 */
+  }
+  
+  /* Headings */
+  .admin-dashboard h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e40af; /* Blue-800 */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Cards */
+  .admin-dashboard .card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .admin-dashboard .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Labels */
+  .admin-dashboard .card p {
+    margin: 0.25rem 0;
+  }
+  
+  .admin-dashboard .card .label {
+    color: #6b7280; /* Gray-500 */
+    font-size: 0.875rem;
+  }
+  
+  .admin-dashboard .card .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937; /* Gray-800 */
+  }
+  
+  /* Buttons */
+  .admin-dashboard button {
+    background-color: #3b82f6; /* Blue-500 */
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .admin-dashboard button:hover {
+    background-color: #2563eb; /* Blue-600 */
+    transform: translateY(-1px);
+  }
+  
+  /* Loading spinner container */
+  .admin-dashboard .loading-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  

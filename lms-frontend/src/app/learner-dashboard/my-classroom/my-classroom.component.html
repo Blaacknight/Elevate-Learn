@@ -1,0 +1,15 @@
+<h2>My Classrooms & Assignments</h2>
+
+<div *ngIf="assignments.length === 0">
+  <p>No assignments found.</p>
+</div>
+
+<div *ngFor="let assignment of assignments" class="assignment-card">
+  <h4>{{ assignment.title }}</h4>
+  <p>{{ assignment.description }}</p>
+
+  <label>Upload your answer (PDF):</label>
+  <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
+
+  <button (click)="submitAssignment(assignment._id)">Submit</button>
+</div>

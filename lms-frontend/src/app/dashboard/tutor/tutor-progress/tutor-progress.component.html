@@ -1,0 +1,232 @@
+<div class="max-w-4xl mx-auto p-6 bg-gradient-to-br from-white to-blue-50 rounded-xl shadow-lg my-8">
+  <!-- Header with icon and title -->
+  <div class="mb-8 border-b border-gray-200 pb-4">
+    <h2 class="text-3xl font-bold text-gray-800 flex items-center">
+      <span class="bg-blue-500 text-white p-2 rounded-lg mr-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      </span>
+      Student Progress Analytics
+    </h2>
+  </div>
+
+  <!-- Course Selector -->
+  <div class="mb-8">
+    <label for="course" class="block text-sm font-medium text-gray-700 mb-2">Select Course</label>
+    <div class="relative">
+      <select id="course" [(ngModel)]="selectedCourseId" (change)="onCourseSelect()" 
+              class="w-full border border-gray-300 rounded-lg px-4 py-3 appearance-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition-all">
+        <option value="">-- Select a Course --</option>
+        <option *ngFor="let course of courses" [value]="course._id">{{ course.title }}</option>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="flex justify-center items-center space-x-2 text-gray-600 mb-8 py-12">
+    <svg class="animate-spin h-6 w-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <span>Loading progress data...</span>
+  </div>
+
+  <!-- Progress Summary Cards -->
+  <div *ngIf="summary" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-500">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="bg-blue-100 rounded-full p-3 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Total Enrolled</p>
+            <p class="text-2xl font-bold text-gray-800">{{ summary.enrolled }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-green-500">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="bg-green-100 rounded-full p-3 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Completed</p>
+            <p class="text-2xl font-bold text-green-600">{{ summary.completed }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-red-500">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="bg-red-100 rounded-full p-3 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Not Completed</p>
+            <p class="text-2xl font-bold text-red-600">{{ summary.notCompleted }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Table -->
+  <div *ngIf="!loading && students.length > 0" class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+    <div class="p-4 bg-gray-50 border-b">
+      <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        Detailed Student Progress
+      </h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gray-100 text-gray-600 text-left text-sm">
+            <th class="px-4 py-3 font-medium">Name</th>
+            <th class="px-4 py-3 font-medium">Email</th>
+            <th class="px-4 py-3 font-medium">Progress</th>
+            <th class="px-4 py-3 font-medium">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let student of students" class="hover:bg-gray-50 transition-colors">
+            <td class="px-4 py-3 text-gray-800 font-medium">{{ student.student.name }}</td>
+            <td class="px-4 py-3 text-gray-600">{{ student.student.email }}</td>
+            <td class="px-4 py-3">
+              <div class="flex items-center">
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2 w-24">
+                  <div class="h-2.5 rounded-full" [style.width.%]="student.percentage"
+                       [ngClass]="{
+                         'bg-red-500': student.percentage < 33,
+                         'bg-yellow-500': student.percentage >= 33 && student.percentage < 66,
+                         'bg-green-500': student.percentage >= 66
+                       }">
+                  </div>
+                </div>
+                <span class="text-sm font-medium" 
+                       [ngClass]="{
+                         'text-red-600': student.percentage < 33,
+                         'text-yellow-600': student.percentage >= 33 && student.percentage < 66,
+                         'text-green-600': student.percentage >= 66
+                       }">
+                  {{ student.percentage }}%
+                </span>
+              </div>
+            </td>
+            <td class="px-4 py-3">
+              <button (click)="viewStudentProgress(student)"
+                      class="bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs py-1 px-3 rounded-full transition-colors flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                View Details
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Individual Student Detail -->
+  <div *ngIf="studentDetails" class="bg-white rounded-lg shadow-md overflow-hidden mb-8 border-l-4 border-blue-500">
+    <div class="p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h4 class="text-lg font-semibold text-gray-800 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Progress of {{ selectedStudent.name }}
+        </h4>
+        <button class="text-gray-500 hover:text-gray-700" onclick="this.parentElement.parentElement.parentElement.style.display='none'">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mb-4">
+        <div class="flex justify-between mb-1">
+          <span class="text-sm font-medium text-gray-700">Course Completion</span>
+          <span class="text-sm font-medium text-blue-600">{{ studentDetails.percent }}%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2.5">
+          <div class="h-2.5 rounded-full bg-blue-600" [style.width.%]="studentDetails.percent"></div>
+        </div>
+        <p class="mt-2 text-sm text-gray-600">Completed {{ studentDetails.completedMaterials.length }} of {{ studentDetails.totalMaterials }} materials</p>
+      </div>
+
+      <div class="mt-4">
+        <h5 class="font-medium text-gray-700 mb-2 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Completed Materials
+        </h5>
+        <div class="bg-gray-50 rounded-lg p-3 max-h-64 overflow-y-auto">
+          <ul class="space-y-2">
+            <li *ngFor="let mat of studentDetails.completedMaterials" class="flex items-center text-sm text-gray-700 p-2 hover:bg-gray-100 rounded">
+              <span class="w-6 h-6 flex-shrink-0 flex items-center justify-center rounded-full mr-2"
+                  [ngClass]="{
+                    'bg-purple-100 text-purple-500': mat.type === 'video',
+                    'bg-blue-100 text-blue-500': mat.type === 'document',
+                    'bg-green-100 text-green-500': mat.type === 'quiz',
+                    'bg-yellow-100 text-yellow-500': mat.type === 'assignment',
+                    'bg-gray-100 text-gray-500': !['video', 'document', 'quiz', 'assignment'].includes(mat.type)
+                  }">
+                <svg *ngIf="mat.type === 'video'" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg *ngIf="mat.type === 'document'" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <svg *ngIf="mat.type === 'quiz'" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg *ngIf="mat.type === 'assignment'" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <svg *ngIf="!['video', 'document', 'quiz', 'assignment'].includes(mat.type)" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+              <span>{{ mat.title }}</span>
+              <span class="text-xs text-gray-500 ml-2">({{ mat.type }})</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No students -->
+  <div *ngIf="!loading && students.length === 0 && selectedCourseId" class="bg-white rounded-lg shadow-md p-8 text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+    <p class="text-xl font-medium text-gray-700 mb-2">No students enrolled</p>
+    <p class="text-gray-500">This course doesn't have any enrolled students yet.</p>
+  </div>
+</div>

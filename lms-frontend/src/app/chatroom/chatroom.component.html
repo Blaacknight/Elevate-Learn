@@ -1,0 +1,66 @@
+<div class="chat-container">
+  <!-- Message list -->
+  <div class="message-list" #messageList>
+    <div *ngFor="let message of messages" class="message">
+      <div><strong>{{ message.user }}:</strong></div>
+      <div>{{ message.text }}</div>
+
+      <!-- Display image if available -->
+      <div *ngIf="message.imageUrl">
+        <img
+          [src]="message.imageUrl"
+          alt="Image"
+          class="message-image"
+          (click)="enlargeImage(message.imageUrl)"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Message input section -->
+  <div class="message-input">
+    <input
+      [(ngModel)]="messageText"
+      type="text"
+      placeholder="Type a message..."
+      class="message-input-field"
+      [ngClass]="{ 'empty': !messageText.trim() }"
+    />
+
+    <!-- File Upload Button -->
+    <label for="file-upload" class="file-upload-button">Choose a file</label>
+    <input
+      type="file"
+      id="file-upload"
+      (change)="onImageSelected($event)"
+      class="file-upload-input"
+    />
+
+    <!-- Display image preview -->
+    <div *ngIf="selectedImage" class="image-preview-container">
+      <p>Preview:</p>
+      <img
+        [src]="selectedImagePreview"
+        alt="Selected Image Preview"
+        class="image-preview"
+      />
+    </div>
+
+    <!-- Send button -->
+    <button
+      (click)="sendMessage()"
+      [disabled]="!messageText.trim() && !selectedImage"
+      class="send-button"
+    >
+      Send
+    </button>
+  </div>
+
+  <!-- Enlarged image popup -->
+  <div *ngIf="enlargedImage" class="image-popup">
+    <div class="popup-content">
+      <img [src]="enlargedImage" alt="Enlarged Image" class="popup-image" />
+      <button (click)="closeEnlargedImage()" class="close-btn">X</button>
+    </div>
+  </div>
+</div>

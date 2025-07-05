@@ -1,0 +1,141 @@
+<div class="relative">
+  <!-- Navbar -->
+  <nav class="bg-white backdrop-filter backdrop-blur-lg bg-opacity-70 border-b border-gray-200 shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a routerLink="/" class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+            <span class="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Elevate Learn</span>
+          </a>
+        </div>
+
+        <!-- Desktop menu -->
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-center space-x-4">
+            <!-- Student links -->
+            <ng-container *ngIf="userRole === 'student'">
+              <a routerLink="/courses" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Published Courses</a>
+              <a routerLink="/student-dashboard" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Dashboard</a>
+              <a routerLink="/my-courses" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">My Courses</a>
+              <a routerLink="/student-classrooms" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">My Classrooms</a>
+              <a routerLink="/student-progress" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Progress</a>
+              <a routerLink="/live-coding" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Go to Live Coding</a>
+            </ng-container>
+
+            <!-- Tutor links -->
+            <ng-container *ngIf="userRole === 'tutor'">
+              <a routerLink="/tutor-dashboard" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Dashboard</a>
+              <a routerLink="/tutor-classrooms" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">My Classrooms</a>
+              <a routerLink="/tutor-progress" routerLinkActive="text-indigo-600" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">Progress</a>
+            </ng-container>
+
+            <!-- Common Links -->
+            <a routerLink="community/chatroom" routerLinkActive="text-indigo-600 bg-gray-50"
+              class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50">
+              Community
+            </a>
+
+            <!-- Resources -->
+            <!-- <span class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 cursor-not-allowed opacity-60 bg-gray-100">
+              Resources
+            </span> -->
+          </div>
+        </div>
+
+        <!-- Actions & Auth -->
+        <div class="flex items-center space-x-3">
+          <!-- Search -->
+          <button class="p-1.5 rounded-full text-gray-500 hover:text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </button>
+
+          <!-- Notifications -->
+          <button class="p-1.5 rounded-full text-gray-500 hover:text-indigo-600 relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+          </button>
+
+          <!-- Auth -->
+          <div *ngIf="!isAuthenticated" class="flex items-center space-x-2">
+            <a routerLink="/login" class="px-4 py-1.5 text-sm text-indigo-600">Log in</a>
+            <a routerLink="/register" class="px-4 py-1.5 text-sm text-white bg-indigo-600 rounded-md">Register</a>
+          </div>
+          <div *ngIf="isAuthenticated" class="relative" #dropdownWrapper>
+            <button (click)="toggleDropdown()" class="flex items-center">
+              <img src="/assets/user.png" class="w-8 h-8 rounded-full" alt="Profile" />
+            </button>
+            <div *ngIf="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+              <a routerLink="/profile" class="block px-4 py-2 text-sm hover:bg-gray-100">My Profile</a>
+              <a routerLink="/settings" class="block px-4 py-2 text-sm hover:bg-gray-100">Settings</a>
+              <button (click)="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden px-4 py-3 border-t border-gray-200" *ngIf="mobileMenuOpen">
+      <ng-container *ngIf="userRole==='student'">
+        <a routerLink="/courses" class="block px-3 py-2 text-base">Published Courses</a>
+        <a routerLink="/student-dashboard" class="block px-3 py-2 text-base">Dashboard</a>
+        <a routerLink="/my-courses" class="block px-3 py-2 text-base">My Courses</a>
+        <a routerLink="/student-classrooms" class="block px-3 py-2 text-base">My Classrooms</a>
+        <a routerLink="/student-progress" class="block px-3 py-2 text-base">Progress</a>
+        <a routerLink="/live-coding" class="block px-3 py-2 text-base">Go to Live Coding</a>
+      </ng-container>
+      <ng-container *ngIf="userRole==='tutor'">
+        <a routerLink="/tutor-dashboard" class="block px-3 py-2 text-base">Dashboard</a>
+        <a routerLink="/tutor-classrooms" class="block px-3 py-2 text-base">My Classrooms</a>
+        <a routerLink="/tutor-progress" class="block px-3 py-2 text-base">Progress</a>
+      </ng-container>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto p-4">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-50 border-t mt-16">
+    <div class="max-w-7xl mx-auto py-8 px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="md:col-span-2">
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13..."/>
+          </svg>
+          <span class="ml-2 text-xl font-bold">Elevate Learn</span>
+        </div>
+        <p class="mt-4 text-sm text-gray-500">Empowering education anywhere.</p>
+      </div>
+      <div>
+        <h3 class="text-sm font-semibold uppercase">Resources</h3>
+        <ul class="mt-2 space-y-1">
+          <li><a class="text-sm hover:text-indigo-600">Documentation</a></li>
+          <li><a class="text-sm hover:text-indigo-600">Tutorials</a></li>
+          <li><a class="text-sm hover:text-indigo-600">Blog</a></li>
+          <li><a class="text-sm hover:text-indigo-600">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-sm font-semibold uppercase">Company</h3>
+        <ul class="mt-2 space-y-1">
+          <li><a class="text-sm hover:text-indigo-600">About Us</a></li>
+          <li><a class="text-sm hover:text-indigo-600">Careers</a></li>
+          <li><a class="text-sm hover:text-indigo-600">Contact</a></li>
+          <li><a class="text-sm hover:text-indigo-600">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="py-4 text-center text-sm text-gray-400">&copy; 2025 Elevate Learn. All rights reserved.</div>
+  </footer>
+</div>

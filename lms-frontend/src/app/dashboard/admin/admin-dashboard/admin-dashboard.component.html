@@ -1,0 +1,86 @@
+<div class="max-w-7xl mx-auto py-8 px-6 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+      <h1 class="text-3xl font-bold text-gray-800 flex items-center">
+        <span class="bg-blue-500 text-white p-2 rounded-lg mr-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          </svg>
+        </span>
+        Admin Dashboard
+      </h1>
+  
+      <!-- Create Classroom Button -->
+      <div class="bg-white rounded-lg shadow-md p-6 flex items-center justify-center">
+        <button 
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow"
+          routerLink="/classroom-management">
+          Create Classroom
+        </button>
+      </div>
+    </div> <!-- ✅ Correct closing of flex box -->
+  
+    <div *ngIf="loading" class="flex justify-center items-center space-x-2 bg-white rounded-lg shadow-md p-10 my-8">
+      <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+        </path>
+      </svg>
+      <span class="text-lg font-medium text-gray-700">Loading data...</span>
+    </div>
+  
+    <div *ngIf="!loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <ng-container *ngIf="dashboardData">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Total Users</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.users?.total || 0 }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Admins</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.users?.admins || 0 }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Tutors</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.users?.tutors || 0 }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Students</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.users?.students || 0 }}</p>
+        </div>
+  
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Total Courses</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.courses?.total || 0 }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Published Courses</p>
+          <p class="text-2xl font-bold text-green-600">{{ dashboardData.courses?.published || 0 }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Unpublished Courses</p>
+          <p class="text-2xl font-bold text-red-500">{{ dashboardData.courses?.unpublished || 0 }}</p>
+        </div>
+  
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Total Enrollments</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.enrollments?.total || 0 }}</p>
+        </div>
+  
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Total Materials</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.materials?.total || 0 }}</p>
+        </div>
+  
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <p class="text-sm text-gray-500">Total Classrooms</p>
+          <p class="text-2xl font-bold text-gray-800">{{ dashboardData.classrooms?.total || 0 }}</p>
+        </div>
+      </ng-container>
+    </div>
+  
+    <div *ngIf="!loading && !dashboardData" class="text-center mt-8">
+      <p class="text-lg text-gray-600">No dashboard data available.</p>
+    </div>
+  </div>
+  

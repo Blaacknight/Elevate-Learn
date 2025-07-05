@@ -1,0 +1,45 @@
+<div class="classroom-page">
+  <button class="go-back-btn" routerLink="/student/classrooms">← Back to Classrooms</button>
+
+  <div *ngIf="isLoading" class="loading-message">Loading classroom details…</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="!isLoading && classroom">
+    <header class="page-header">
+      <h2>{{ classroom.name }}</h2>
+      <p>{{ classroom.description }}</p>
+      <p>
+        <strong>Tutor:</strong> {{ classroom.tutor.name }} ({{ classroom.tutor.email }}) |
+        <strong>Students:</strong> {{ classroom.students.length }}
+      </p>
+    </header>
+
+    <section *ngIf="classroom.assignments?.length" class="assignments-wrapper">
+      <h3>Assignments</h3>
+
+      <div *ngFor="let a of classroom.assignments" class="assignment">
+        <div class="assignment-header">
+          <h4>{{ a.title }}</h4>
+          <span class="due-date" [ngClass]="{ 'overdue': isOverdue(a.dueDate) }">
+            Due: {{ a.dueDate | date:'medium' }}
+            <span *ngIf="isOverdue(a.dueDate)"> (Overdue)</span>
+          </span>
+        </div>
+
+        <p class="assignment-description">{{ a.description }}</p>
+
+        <div *ngIf="a.questionsPDF" class="pdf-preview">
+          <a [href]="'/assets/pdfs/' + a.questionsPDF" target="_blank">📄 View Questions PDF</a>
+        </div>
+
+        <div class="upload-section">
+          <label>
+            Upload PDF:
+            <input type="file" (change)="onFileChange($event, a._id)" />
+          </label>
+          <button (click)="submitAssignment(a._id)">Submit</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

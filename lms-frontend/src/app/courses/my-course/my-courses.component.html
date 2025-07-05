@@ -1,0 +1,73 @@
+<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <div class="flex items-center justify-between mb-10 border-b border-gray-200 pb-6">
+    <h1 class="text-3xl font-bold text-gray-800 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+      </svg>
+      My Learning Dashboard
+    </h1>
+    
+    <div class="hidden sm:block bg-green-50 px-4 py-2 rounded-lg border border-green-100">
+      <div class="flex items-center text-sm text-green-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Keep learning and stay consistent!</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center py-24">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-600"></div>
+    <span class="ml-3 text-lg text-gray-600 font-medium">Loading your courses...</span>
+  </div>
+  
+  <div *ngIf="!loading && myCourses.length === 0" class="flex flex-col items-center justify-center py-24 bg-white rounded-xl shadow-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+    </svg>
+    <p class="text-xl text-gray-500 font-medium">You're not enrolled in any courses yet</p>
+    <p class="text-gray-500 mt-2 mb-6">Browse our catalog to discover exciting learning opportunities</p>
+    <a routerLink="/courses" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-all duration-300 font-medium flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      Browse Courses
+    </a>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div *ngFor="let course of myCourses" class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100">
+      <div class="relative">
+        <img [src]="'http://localhost:5000' + course.thumbnail" class="h-48 w-full object-cover" alt="Course thumbnail" />
+        <div class="absolute top-3 right-3 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+          {{ course.category }}
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-3 line-clamp-2 h-14">{{ course.title }}</h2>
+        
+        <div class="mb-4">
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Progress</span>
+            <span class="font-medium">{{ courseProgress[course._id] || 0 }}%</span>
+          </div>
+          <app-progress-bar
+            [courseId]="course._id"
+            [percent]="courseProgress[course._id] || 0">
+          </app-progress-bar>
+        </div>
+        
+        <a [routerLink]="['/courses', course._id]"
+           class="block w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg text-center transition-colors duration-300 font-medium flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Continue Learning
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

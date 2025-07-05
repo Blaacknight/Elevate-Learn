@@ -1,0 +1,143 @@
+:host {
+    display: block;
+    padding: 2rem;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+  }
+  
+  .classroom-page {
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  /* Go Back Button */
+  .go-back-btn {
+    background-color: #e5e7eb;
+    border: none;
+    color: #374151;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .go-back-btn:hover {
+    background-color: #d1d5db;
+  }
+  
+  /* Header */
+  .page-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .page-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Assignment Section */
+  .assignments-wrapper {
+    margin-top: 2rem;
+  }
+  
+  .assignments-wrapper h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+  
+  /* Assignment Card */
+  .assignment {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .assignment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .assignment-header h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .due-date {
+    font-size: 0.9rem;
+    color: #6b7280;
+  }
+  
+  .due-date.overdue {
+    color: #dc2626;
+    font-weight: bold;
+  }
+  
+  .assignment-description {
+    margin: 0.75rem 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+  }
+  
+  /* PDF Preview */
+  .pdf-preview a {
+    font-size: 0.9rem;
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  /* Upload Section */
+  .upload-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.75rem;
+  }
+  
+  .upload-section input[type="file"] {
+    font-size: 0.9rem;
+  }
+  
+  .upload-section button {
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .upload-section button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  /* Loading and Error */
+  .loading-message,
+  .error-message {
+    font-size: 1rem;
+    padding: 1rem 0;
+  }
+  
+  .loading-message {
+    color: #6b7280;
+  }
+  
+  .error-message {
+    color: #dc2626;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+  }
+  

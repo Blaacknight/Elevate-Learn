@@ -1,0 +1,100 @@
+<div class="max-w-4xl mx-auto py-8 px-6 bg-white relative">
+  <h1 class="text-3xl font-bold mb-4 text-gray-800">{{ course?.title }}</h1>
+  <p class="text-gray-700 font-medium mb-2">Tutor: {{ course?.tutor?.name }}</p>
+  <p class="text-gray-600 mb-6 leading-relaxed">{{ course?.description }}</p>
+
+  <button *ngIf="!enrolled"
+    (click)="enroll()"
+    class="bg-indigo-600 text-white px-5 py-2 rounded-md hover:bg-indigo-700 transition shadow-sm mb-6 font-medium">
+    Enroll
+  </button>
+
+  <button *ngIf="enrolled"
+    class="bg-gray-300 text-gray-700 px-5 py-2 rounded-md cursor-not-allowed mb-6 font-medium"
+    disabled>
+    Enrolled
+  </button>
+
+  <div *ngIf="enrolled" class="mt-6 mb-8">
+    <h2 class="text-lg font-semibold text-gray-800 mb-3">Your Progress</h2>
+    <app-progress-bar [courseId]="courseId" [percent]="courseProgress"></app-progress-bar>
+  </div>
+
+  <div *ngIf="loading" class="text-gray-500 italic my-6">Loading structure...</div>
+
+  <div *ngIf="structure.length > 0">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Course Structure</h2>
+    <div *ngFor="let sec of structure" class="mb-8 border-b border-gray-100 pb-4">
+      <h3 class="text-md font-bold text-indigo-700 mb-3 flex items-center">
+        {{ sec.title }}
+        <span *ngIf="enrolled && sec.isCompleted" class="ml-2 text-green-700 text-xs font-semibold bg-green-100 px-2 py-1 rounded-full">
+          ✅ Completed
+        </span>
+      </h3>
+
+      <ul class="text-sm text-gray-700 ml-4 list-disc space-y-3">
+        <li *ngFor="let mat of sec.materials" class="flex justify-between items-center py-2">
+          <div>
+            <span class="font-semibold text-gray-800">{{ mat.title }}</span>
+            <span class="text-gray-500 text-xs ml-2">({{ mat.type }})</span>
+            <div class="mt-1 flex space-x-3">
+              <!-- PDF Download -->
+              <button *ngIf="enrolled && mat.type === 'pdf'"
+                (click)="downloadMaterial(mat._id, mat.title + '.pdf', 'pdf')"
+                class="bg-emerald-500 text-white text-xs px-3 py-1 rounded-md hover:bg-emerald-600 transition">
+                📄 Download PDF
+              </button>
+
+              <!-- Video Download -->
+              <button *ngIf="enrolled && mat.type === 'video'"
+                (click)="downloadMaterial(mat._id, mat.title, 'video')"
+                class="bg-blue-500 text-white text-xs px-3 py-1 rounded-md hover:bg-blue-600 transition">
+                🎬 Download Video
+              </button>
+
+              <!-- YouTube Link -->
+              <a *ngIf="enrolled && mat.type === 'youtube'"
+                [href]="mat.content"
+                target="_blank"
+                class="text-indigo-600 hover:underline text-xs font-medium">
+                ▶ Watch Video
+              </a>
+            </div>
+          </div>
+
+          <app-progress-toggle
+            [courseId]="courseId"
+            [materialId]="mat._id"
+            (progressUpdated)="onProgressUpdated($event)">
+          </app-progress-toggle>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <button (click)="checkCourseCompletionAndDownload()"
+    class="inline-block bg-amber-500 text-white px-5 py-2 rounded-md hover:bg-amber-600 transition shadow-sm mt-2">
+    🎓 Download Certificate
+  </button>
+
+  <!-- Certificate warning modal -->
+  <div *ngIf="showMessage" class="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center">
+    <div class="relative bg-white p-6 rounded-md shadow-lg w-96">
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">Course Not Completed</h3>
+      <p class="text-sm text-gray-500 mb-4">
+        Please complete all the materials in the course to be eligible to download the certificate.
+      </p>
+      <div class="flex justify-end">
+        <button (click)="closeMessage()"
+          class="px-4 py-2 bg-indigo-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+          Okay
+        </button>
+      </div>
+      <button (click)="closeMessage()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
