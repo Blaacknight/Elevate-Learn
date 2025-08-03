@@ -121,15 +121,8 @@ The production build is generated in `dist/lms-frontend`.
 
 ## 👨‍💻 Author
 
-**Your Name Here** — [GitHub](https://github.com/Blaacknight)
+**Muhammed Shahbas V S** — [GitHub](https://github.com/Blaacknight)
 
----
-
-## 📝 License
-
-This project is licensed under the **ISC License**.
-
----
 
 ## 📢 Contributing
 
